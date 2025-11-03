@@ -1,0 +1,23 @@
+(一)git使用教程：
+	(1)使用 git clone "github仓库的网址(点击进github仓库，点击code，复制仓库网址)"
+	(2)将需要上传的文件方在克隆的文件夹中
+	(3)git status查看克隆仓库中的文件(没有上传的文件)
+	(4)git add 文件名 
+	(5)git commit -m '备注信息'
+	(6)git remote set-url origin "https://Token@github.com/NebulaWander/Data_Strcut.git"
+	(7)git push
+
+(二)Token：在 github 中复制
+
+(三)Token(Personal Access Token)的设置流程：
+
+	(1)创建 Personal Access Token：
+
+	(2)登录 GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)
+
+	(3)点击 "Generate new token" → "Generate new token (classic)"
+
+	(4)设置权限（至少选择 repo）和填写NOTE
+
+	(5)生成并复制 token
+(四)回退提交：git reset --mixed HEAD~1
