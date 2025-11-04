@@ -36,6 +36,7 @@ int CircLList_HeadInsert(CircLList_t *circllist, Datatype_t data)
         circllist->next    = newcircllist;
         newcircllist->next = newcircllist;
         newcircllist->data = data;
+	return 0;
     }
 
     // 单向循环链表非空
@@ -81,6 +82,7 @@ int CircLList_TailInsert(CircLList_t *circllist, Datatype_t data)
         circllist->next    = newcircllist;
         newcircllist->next = newcircllist;
         newcircllist->data = data;
+	return 0;
     }
 
     // 单向循环链表非空
@@ -126,6 +128,7 @@ int CircLList_OrderInsert(CircLList_t *circllist, Datatype_t data, int pos)
         circllist->next    = newcircllist;
         newcircllist->next = newcircllist;
         newcircllist->data = data;
+	return 0;
     }
 
     // 单向循环链表非空
