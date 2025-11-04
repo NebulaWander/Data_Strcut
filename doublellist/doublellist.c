@@ -271,9 +271,7 @@ int DoubleLList_OrderDelete(DoubleLList_t *doublellist, int pos)
         perror("the double linked list is empty!!!!!\n");
         return -1;
     }    
-
      
-
     // 依次向后移动找到指定位置节点
     while (NULL != doublellist1->next && i <= pos)
     {
@@ -285,6 +283,10 @@ int DoubleLList_OrderDelete(DoubleLList_t *doublellist, int pos)
 
     // 双向链表中只有一个首结点
     if (NULL == doublellist2->next){
+	// 将首结点的next指针域指向NULL
+        doublellist2->next = NULL;
+	// 将首结点的prev指针域指向NULL
+        doublellist2->prev = NULL;
         // 将头结点的直接后继的指针域指向NULL
         doublellist1->next = NULL;
         // 释放首结点的内存空间
