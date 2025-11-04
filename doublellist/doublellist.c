@@ -34,28 +34,27 @@ int DoubleLList_HeadInsert(DoubleLList_t *doublellist, DataType_t data)
     newdoublellist->next = NULL;
 
     // 判断双向链表为空
-    if (NULL == doublellist1->next){
+    if (NULL == doublellist->next){
         // 插入元素
         newdoublellist->data = data;
         // 头节点的直接后继的指针域指向新结点的地址
-        doublellist1->next = newdoublellist;
+        doublellist->next = newdoublellist;
         // 新结点的直接前驱的指针域不指向头结点的地址，而是指向NULL
         //newdoublellist->prev = NULL;
         // 新结点的直接后继的指针域指向NULL
         //newdoublellist->next = NULL;
-        return 0;
     }    
-
-    // 插入元素
-    newdoublellist->data = data;
-    // 将新结点连接到双向链表
-    newdoublellist->next = doublellist1->next;
-    // 新结点的直接前驱的指针域不指向头结点的地址，而是指向NULL
-    //newdoublellist->prev = NULL;
-    // 断开头节点和首结点之间的连接
-    doublellist1->next->prev = newdoublellist->next;
-    doublellist1->next = newdoublellist;
-
+    else{
+        // 插入元素
+        newdoublellist->data = data;
+        // 将新结点连接到双向链表
+        newdoublellist->next = doublellist1->next;
+        // 新结点的直接前驱的指针域不指向头结点的地址，而是指向NULL
+        //newdoublellist->prev = NULL;
+        // 断开头节点和首结点之间的连接
+        doublellist1->next->prev = newdoublellist->next;
+        doublellist1->next = newdoublellist;
+    }
     return 0;
 }
 
@@ -76,19 +75,6 @@ int DoubleLList_TailInsert(DoubleLList_t *doublellist, DataType_t data)
     newdoublellist->prev = NULL;
     newdoublellist->next = NULL;
 
-    // 判断双向链表为空
-    if (NULL == doublellist1->next){
-        // 插入元素
-        newdoublellist->data = data;
-        // 头节点的直接后继的指针域指向新结点的地址
-        doublellist1->next = newdoublellist;
-        // 新结点的直接前驱的指针域不指向头结点的地址，而是指向NULL
-        //newdoublellist->prev = NULL;
-        // 新结点的直接后继的指针域指向NULL
-        //newdoublellist->next = NULL;
-        return 0;
-    }    
-
     // 依次向后移动找到最后一个节点
     while (NULL != doublellist1->next)
     {
@@ -96,16 +82,29 @@ int DoubleLList_TailInsert(DoubleLList_t *doublellist, DataType_t data)
         doublellist1 = doublellist1->next;
     }
 
-    // 插入元素
-    newdoublellist->data = data;
-    // 将新结点连接到尾结点的后面
-    // 将最后一个节点的指针域指向新结点的地址
-    doublellist1->next = newdoublellist;
-    // 将新节点的直接前驱的指针域指向最后一个结点的地址
-    newdoublellist->prev = doublellist1;
-    // 新结点的直接后继的指针域指向NULL
-    //newdoublellist->next = NULL;
-
+    // 判断双向链表为空
+    if (NULL == doublellist->next){
+        // 插入元素
+        newdoublellist->data = data;
+        // 头节点的直接后继的指针域指向新结点的地址
+        doublellist->next = newdoublellist;
+        // 新结点的直接前驱的指针域不指向头结点的地址，而是指向NULL
+        //newdoublellist->prev = NULL;
+        // 新结点的直接后继的指针域指向NULL
+        //newdoublellist->next = NULL;
+        return 0;
+    }    
+    else{
+        // 插入元素
+        newdoublellist->data = data;
+        // 将新结点连接到尾结点的后面
+        // 将最后一个节点的指针域指向新结点的地址
+        doublellist1->next = newdoublellist;
+        // 将新节点的直接前驱的指针域指向最后一个结点的地址
+        newdoublellist->prev = doublellist1;
+        // 新结点的直接后继的指针域指向NULL
+        //newdoublellist->next = NULL;
+    }
     return 0;
 }
 
@@ -126,16 +125,7 @@ int DoubleLList_OrderInsert(DoubleLList_t *doublellist, DataType_t data, int pos
     }
     // 内存空间申请成功，将头结点的直接前驱的指针域和直接后继的指针域指向NULL
     newdoublellist->prev = NULL;
-    newdoublellist->next = NULL;
-
-    // 判断双向链表为空
-    if (NULL == doublellist1->next){
-        // 插入元素
-        newdoublellist->data = data;
-        // 头节点的直接后继的指针域指向新结点的地址
-        doublellist1->next = newdoublellist;
-        return 0;
-    }    
+    newdoublellist->next = NULL;    
 
     // 依次向后移动找到指定位置节点的前一个结点
     while (NULL != doublellist1->next && i < pos)
@@ -146,8 +136,15 @@ int DoubleLList_OrderInsert(DoubleLList_t *doublellist, DataType_t data, int pos
         i++;
     }
 
+    // 判断双向链表为空
+    if (NULL == doublellist->next){
+        // 插入元素
+        newdoublellist->data = data;
+        // 头节点的直接后继的指针域指向新结点的地址
+        doublellist->next = newdoublellist;
+    }    
     // 找到的是最后一节点
-    if (NULL == doublellist1->next){
+    else if (NULL == doublellist1->next){
         // 插入元素
         newdoublellist->data = data;
         // 将新结点连接到尾结点的后面
@@ -155,21 +152,21 @@ int DoubleLList_OrderInsert(DoubleLList_t *doublellist, DataType_t data, int pos
         doublellist1->next = newdoublellist;
         // 将新节点的直接前驱的指针域指向最后一个结点的地址
         newdoublellist->prev = doublellist1;
-        return 0;
     }
-
-    // 插入元素
-    newdoublellist->data = data;
-    // 先连接
-    // 将新结点的直接前驱的指针域指向指定位置结点前一个结点的地址
-    newdoublellist->prev = doublellist1;
-    // 将新结点的直接后继的指针域指向指定位置结点的地址
-    newdoublellist->next = doublellist1->next;
-    // 在断开
-    // 将指定位置节点的直接前驱的指针域指向新结点的地址
-    doublellist1->next->prev = newdoublellist;
-    // 将指定位置节点前一个结点的指针域指向新结点的地址
-    doublellist1->next = newdoublellist;
+    else{
+        // 插入元素
+        newdoublellist->data = data;
+        // 先连接
+        // 将新结点的直接前驱的指针域指向指定位置结点前一个结点的地址
+        newdoublellist->prev = doublellist1;
+        // 将新结点的直接后继的指针域指向指定位置结点的地址
+        newdoublellist->next = doublellist1->next;
+        // 在断开
+        // 将指定位置节点的直接前驱的指针域指向新结点的地址
+        doublellist1->next->prev = newdoublellist;
+        // 将指定位置节点前一个结点的指针域指向新结点的地址
+        doublellist1->next = newdoublellist;
+    }    
 
     return 0;
 }
@@ -196,17 +193,18 @@ int DoubleLList_HeadDelete(DoubleLList_t *doublellist)
         free(doublellist2);
         doublellist2 = NULL;
     } 
-
-    // 删除元素
-    // 将头结点的直接后继的指针域指向首结点的下一个结点的地址
-    doublellist1->next = doublellist2->next;
-    // 将首结点的下一个节点的直接后继的指针域指向NULL
-    doublellist2->next->prev = NULL;
-    // 将首结点的直接后继的指针域指向NULL
-    doublellist2->next = NULL;
-    // 释放首结点的内存空间
-    free(doublellist2);
-    doublellist2 = NULL;
+    else{
+        // 删除元素
+        // 将头结点的直接后继的指针域指向首结点的下一个结点的地址
+        doublellist1->next = doublellist2->next;
+        // 将首结点的下一个节点的直接后继的指针域指向NULL
+        doublellist2->next->prev = NULL;
+        // 将首结点的直接后继的指针域指向NULL
+        doublellist2->next = NULL;
+        // 释放首结点的内存空间
+        free(doublellist2);
+        doublellist2 = NULL;
+    }
 
     return 0;
 }
@@ -226,6 +224,13 @@ int DoubleLList_TailDelete(DoubleLList_t *doublellist)
         return -1;
     }   
 
+    // 依次向后移动找到最后一个节点
+    while (NULL != doublellist1->next)
+    {
+        // 找到最后一个结点的前一个结点跳出循环
+        doublellist1 = doublellist1->next;
+    }
+
     // 双向链表中只有一个首结点
     if (NULL == doublellist2->next){
         // 将头结点的直接后继的指针域指向NULL
@@ -234,24 +239,18 @@ int DoubleLList_TailDelete(DoubleLList_t *doublellist)
         free(doublellist2);
         doublellist2 = NULL;
     } 
-
-    // 依次向后移动找到最后一个节点
-    while (NULL != doublellist1->next)
-    {
-        // 找到最后一个结点的前一个结点跳出循环
-        doublellist1 = doublellist1->next;
+    else{
+        // 删除元素
+        // 将尾结点的地址保存在 doublellist3
+        doublellist3 = doublellist1;
+        // 将尾结点的前一个节点的直接后继的指针域指向NULL
+        doublellist3->prev->next = NULL;
+        // 尾结点的直接前驱的指针域指向NULL
+        doublellist3->prev = NULL;
+        // 释放尾结点的内存空间
+        free(doublellist3);
+        doublellist3 = NULL;
     }
-
-    // 删除元素
-    // 将尾结点的地址保存在 doublellist3
-    doublellist3 = doublellist1;
-    // 将尾结点的前一个节点的直接后继的指针域指向NULL
-    doublellist3->prev->next = NULL;
-    // 尾结点的直接前驱的指针域指向NULL
-    doublellist3->prev = NULL;
-    // 释放尾结点的内存空间
-    free(doublellist3);
-    doublellist3 = NULL;
 
     return 0;
 }
@@ -273,14 +272,7 @@ int DoubleLList_OrderDelete(DoubleLList_t *doublellist, int pos)
         return -1;
     }    
 
-    // 双向链表中只有一个首结点
-    if (NULL == doublellist2->next){
-        // 将头结点的直接后继的指针域指向NULL
-        doublellist1->next = NULL;
-        // 释放首结点的内存空间
-        free(doublellist2);
-        doublellist2 = NULL;
-    } 
+     
 
     // 依次向后移动找到指定位置节点
     while (NULL != doublellist1->next && i <= pos)
@@ -291,8 +283,16 @@ int DoubleLList_OrderDelete(DoubleLList_t *doublellist, int pos)
         i++;
     }
 
+    // 双向链表中只有一个首结点
+    if (NULL == doublellist2->next){
+        // 将头结点的直接后继的指针域指向NULL
+        doublellist1->next = NULL;
+        // 释放首结点的内存空间
+        free(doublellist2);
+        doublellist2 = NULL;
+    }
     // 找到的是最后一个结点
-    if (NULL == doublellist1->next){
+    else if (NULL == doublellist1->next){
         // 删除元素
         // 将尾结点的地址保存在 doublellist3
         doublellist3 = doublellist1;
@@ -303,24 +303,23 @@ int DoubleLList_OrderDelete(DoubleLList_t *doublellist, int pos)
         // 释放尾结点的内存空间
         free(doublellist3);
         doublellist3 = NULL;
-
-        return 0;
     }
-
-    // 删除元素
-    // 将指定位置结点的地址保存在 doublellist3
-    doublellist3 = doublellist1->next;
-    // 将指定位置结点的下一个节点的直接前驱的指针域指向指定位置结点的前一个节点的地址
-    doublellist3->next->prev = doublellist1;
-    // 将指定位置结点的前一个节点的直接后继的指针域指向指定位置结点的下一个节点的地址
-    doublellist1->next = doublellist3->next; 
-    // 将指定位置结点的直接前驱的指针域指向NULL
-    doublellist3->prev = NULL;
-    // 将指定位置结点的直接后继的指针域指向NULL
-    doublellist3->next = NULL;
-    // 释放当前节点的内存空间
-    free(doublellist3);
-    doublellist3 = NULL;
+    else{
+        // 删除元素
+        // 将指定位置结点的地址保存在 doublellist3
+        doublellist3 = doublellist1->next;
+        // 将指定位置结点的下一个节点的直接前驱的指针域指向指定位置结点的前一个节点的地址
+        doublellist3->next->prev = doublellist1;
+        // 将指定位置结点的前一个节点的直接后继的指针域指向指定位置结点的下一个节点的地址
+        doublellist1->next = doublellist3->next; 
+        // 将指定位置结点的直接前驱的指针域指向NULL
+        doublellist3->prev = NULL;
+        // 将指定位置结点的直接后继的指针域指向NULL
+        doublellist3->next = NULL;
+        // 释放当前节点的内存空间
+        free(doublellist3);
+        doublellist3 = NULL;
+    }
 
     return 0;    
 }
