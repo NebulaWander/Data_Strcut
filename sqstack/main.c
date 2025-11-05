@@ -28,6 +28,11 @@ int main()
     // 遍历栈空间中的元素
     SqStack_Show(sq_stack);
 
+    // 出栈
+    SqStack_Pop(sq_stack);
+    // 遍历栈空间中的元素
+    SqStack_Show(sq_stack);
+
     // 释放栈空间内存
     SqStack_Free(sq_stack);
 
