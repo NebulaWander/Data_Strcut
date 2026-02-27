@@ -44,8 +44,8 @@ int SqCircQueue_DeQueue(SqCircQueue_t *sqcircqueue, DataType_t *data)
     }
 
     // 移动首（需要防止队尾超出顺序循环队列的最大容量）
-    sqcircqueue->Front = ((sqcircqueue->Front + 1) % MAXSIZE);
     *data = sqcircqueue->data[sqcircqueue->Front];
+    sqcircqueue->Front = ((sqcircqueue->Front + 1) % MAXSIZE);
 
     // 返回出队的元素
     return 0;
